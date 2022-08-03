@@ -1,13 +1,19 @@
+let bodyParser = require('body-parser');
 require('dotenv').config();
 let express = require("express");
 let app = express();
+
+app.use( bodyParser.urlencoded({extended: false}));
+
+
+
 /*
 app.use(function middelware(req,res,next){
     var string = req.method + " " + req.path + " - " + req.ip;
     console.log(string);
     next();
 })
-*/
+
 app.get("/name", function(req, res) {
     var firstName = req.query.first;
     var lastName = req.query.last;
@@ -15,7 +21,6 @@ app.get("/name", function(req, res) {
       name: `${firstName} ${lastName}`
     });
   });
-/*
 app.get("/json", (req, res) => {
     res.sendFile(__dirname+"/views/index.html");
     if(process.env.MESSAGE_STYLE === "uppercase"){
