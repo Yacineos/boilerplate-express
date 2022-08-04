@@ -4,8 +4,9 @@ let express = require("express");
 let app = express();
 
 app.use(express.json());
+var jsonParser = bodyParser.json();
 
-
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /*
 app.use(function middelware(req,res,next){
@@ -40,7 +41,7 @@ app.get("/",(req,res)=>{
 // ----------------- Rendre le CSS accessible ---------------------
 app.use("/public",express.static(__dirname + "/public"));
 //------------------ lecture des données retournées par POST -----
-app.post("/name", function(req, res) {
+app.post("/name",urlencodedParser, (req, res) =>{
   // Handle the data in the request
   var string = req.body.first + " " + req.body.last;
   res.json({ name: string });
