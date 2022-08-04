@@ -3,7 +3,7 @@ require('dotenv').config();
 let express = require("express");
 let app = express();
 
-app.use( bodyParser.urlencoded({extended: false}));
+app.use(express.json());
 
 
 
@@ -31,12 +31,17 @@ app.get("/json", (req, res) => {
         res.json({ "message" : "Hello json" });
     }
   });
-
-app.get("/",(req,res)=>{
-  
-})
 */
+app.get("/",(req,res)=>{
+  res.sendFile(__dirname +"/views/index.html");
+})
+
 app.use("/public",express.static(__dirname + "/public"));
 
+app.post("/name", function(req, res) {
+  // Handle the data in the request
+  var string = req.body.first + " " + req.body.last;
+  res.json({ name: string });
+});
 
 module.exports = app;
